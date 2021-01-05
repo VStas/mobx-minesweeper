@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/mobx-minesweeper/static/css/main.645fa16c.chunk.css",
+    "main.js": "/mobx-minesweeper/static/js/main.dfc11e43.chunk.js",
+    "main.js.map": "/mobx-minesweeper/static/js/main.dfc11e43.chunk.js.map",
+    "runtime-main.js": "/mobx-minesweeper/static/js/runtime-main.250bbfa6.js",
+    "runtime-main.js.map": "/mobx-minesweeper/static/js/runtime-main.250bbfa6.js.map",
+    "static/js/2.321fd188.chunk.js": "/mobx-minesweeper/static/js/2.321fd188.chunk.js",
+    "static/js/2.321fd188.chunk.js.map": "/mobx-minesweeper/static/js/2.321fd188.chunk.js.map",
+    "static/js/3.44280215.chunk.js": "/mobx-minesweeper/static/js/3.44280215.chunk.js",
+    "static/js/3.44280215.chunk.js.map": "/mobx-minesweeper/static/js/3.44280215.chunk.js.map",
+    "index.html": "/mobx-minesweeper/index.html",
+    "static/css/main.645fa16c.chunk.css.map": "/mobx-minesweeper/static/css/main.645fa16c.chunk.css.map",
+    "static/js/2.321fd188.chunk.js.LICENSE.txt": "/mobx-minesweeper/static/js/2.321fd188.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.250bbfa6.js",
+    "static/js/2.321fd188.chunk.js",
+    "static/css/main.645fa16c.chunk.css",
+    "static/js/main.dfc11e43.chunk.js"
+  ]
+}
