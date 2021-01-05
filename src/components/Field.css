@@ -1,0 +1,23 @@
+.row {
+    display: flex;
+}
+
+.cell {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #ddd;
+}
+
+.cell_open {
+    background-color: white;
+}
+
+.cell_danger {
+    background-color: red;
+}
