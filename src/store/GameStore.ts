@@ -1,5 +1,5 @@
-import { makeAutoObservable } from "mobx";
-import { BOMB_VALUE, MinesweeperGame } from "./MinesweeperGame";
+import { action, makeObservable, observable } from "mobx";
+import { BOMB_VALUE, MinesweeperFieldGenerator } from "../utils/MinesweeperFieldGenerator";
 
 export enum CellStatus {
     DEFAULT, OPEN, MARKED_BOMB 
@@ -14,19 +14,23 @@ export type Cell = {
     value: number;
 };
 
+const TOTAL_COLUMNS = 10;
+const TOTAL_ROWS = 5;
+const TOTAL_BOMBS = 5;
+
+// надо вынести Cell в отдельный класс, но мне было лень
+
 export class GameStore {
     cells: Cell[][];
     gameStatus: GameStatus;
     cellsOpen = 0;
 
-    constructor(
-        public minesweeperGame: MinesweeperGame
-    ) {
+    constructor() {
+        const {fieldValues} = new MinesweeperFieldGenerator(TOTAL_COLUMNS, TOTAL_ROWS, TOTAL_BOMBS);
 
-        const {rows, columns, fieldValues} = minesweeperGame;
         this.cells = [];
-        for (let i = 0; i < rows; i++) {
-            for (let j = 0; j < columns; j++) {
+        for (let i = 0; i < TOTAL_ROWS; i++) {
+            for (let j = 0; j < TOTAL_COLUMNS; j++) {
                 if (!this.cells[i]) {
                     this.cells[i] = [];
                 }
@@ -39,9 +43,13 @@ export class GameStore {
 
         this.gameStatus = GameStatus.IN_PROGRESS;
 
-        makeAutoObservable(this, {
-            cellsOpen: false
+        makeObservable(this, {
+            cells: observable,
+            gameStatus: observable,
+            openCell: action,
+            toggleMarkBomb: action
         });
+
     }
 
     openCell = (row: number, column: number) => {
@@ -49,23 +57,25 @@ export class GameStore {
             return;
         }
 
-        if (row < 0 || row >= this.minesweeperGame.rows || column < 0 || column >= this.minesweeperGame.columns) {
+        if (row < 0 || row >= TOTAL_ROWS || column < 0 || column >= TOTAL_COLUMNS) {
             return;
         }
 
-        if (this.cells[row][column].status !== CellStatus.DEFAULT) {
+        const cell = this.cells[row][column];
+
+        if (cell.status !== CellStatus.DEFAULT) {
             return;
         }
 
-        this.cells[row][column].status = CellStatus.OPEN;
+        cell.status = CellStatus.OPEN;
         this.cellsOpen++;
 
-        if (this.cells[row][column].value === BOMB_VALUE) {
+        if (cell.value === BOMB_VALUE) {
             this.gameStatus = GameStatus.LOST;
             return;
         }
 
-        if (this.minesweeperGame.fieldValues[row][column] === 0) {
+        if (cell.value === 0) {
             this.openCell(row - 1, column - 1);
             this.openCell(row - 1, column);
             this.openCell(row - 1, column + 1);
@@ -95,14 +105,6 @@ export class GameStore {
     }
 
     isVictory() {
-        const {rows, columns, totalBombs} = this.minesweeperGame;
-
-        return this.cellsOpen === (rows * columns - totalBombs);
+        return this.cellsOpen === (TOTAL_ROWS * TOTAL_COLUMNS - TOTAL_BOMBS);
     }
 }
-
-// class Cell {
-//     constructor(public status: CellStatus) {
-//         makeAutoObservable(this);
-//     }
-// }

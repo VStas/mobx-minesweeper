@@ -1,12 +1,12 @@
 export const BOMB_VALUE = -1;
 
-export class MinesweeperGame {
+export class MinesweeperFieldGenerator {
     fieldValues: number[][];
 
     constructor(
-        readonly columns: number,
-        readonly rows: number,
-        readonly totalBombs: number
+        private readonly columns: number,
+        private readonly rows: number,
+        private readonly totalBombs: number
     ) {
         this.fieldValues = [];
         for (let i = 0; i < rows; i++) {

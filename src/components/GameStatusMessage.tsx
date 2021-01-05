@@ -17,7 +17,7 @@ export const GameStatusMessage: React.FC<Props> = observer(({gameStore}) => {
     return (
         <strong>
             {
-                gameStatus === GameStatus.LOST ?'You lost :(' : 'You won :)'
+                gameStatus === GameStatus.LOST ? 'You lost :(' : 'You won :)'
             }
         </strong>
     );

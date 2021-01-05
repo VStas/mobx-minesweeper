@@ -1,11 +1,13 @@
 import React from 'react';
 import cn from 'classnames';
-import { GameStore, Cell, CellStatus } from '../store/GameStore';
 import {observer} from 'mobx-react-lite';
-import './Field.css';
-import { BOMB_VALUE } from '../store/MinesweeperGame';
 
-type CellProps = {
+import { Cell, CellStatus } from '../store/GameStore';
+import { BOMB_VALUE } from '../utils/MinesweeperFieldGenerator';
+
+import './GameCell.css';
+
+type Props = {
     cell: Cell;
     onOpen(): void;
     onToggleMarkBomb(): void;
@@ -22,7 +24,7 @@ function getCellDisplayValue(status: CellStatus, value: number) {
     return '|>';
 }
 
-const FieldCell: React.FC<CellProps> = observer((props) => {
+export const GameCell: React.FC<Props> = observer((props) => {
     const {cell: {status, value}} = props;
 
     const handleContextMenu = (e: React.MouseEvent) => {
@@ -44,29 +46,3 @@ const FieldCell: React.FC<CellProps> = observer((props) => {
         </div>
     );
 });
-
-type FieldProps = {
-    fieldStore: GameStore;
-};
-
-export const Field: React.FC<FieldProps> = (props) => {
-    const {fieldStore: {cells, openCell, toggleMarkBomb}} = props;
-
-    return (
-        <div className="field">
-            {cells.map((row, i) => (
-                <div className="row" key={i}>
-                    {row.map((cell, j) => (
-                        <FieldCell
-                            key={j}
-                            cell={cell}
-                            onOpen={() => openCell(i, j)}
-                            onToggleMarkBomb={() => toggleMarkBomb(i, j)}
-                        />
-                    ))}
-                </div>
-            ))}
-        </div>
-    );
-}
-
